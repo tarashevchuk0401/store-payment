@@ -1,0 +1,20 @@
+<p>cart works!</p>
+<main  *ngIf="cart.items">
+    <div class="card_wrapper" *ngFor="let product of cart.items">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>{{product.productName}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src={{product.imageUrl}} alt="Photo of a Shiba Inu">
+            <mat-card-content>
+                <p>{{product.quantity}}</p>
+                <p>{{product.price | currency}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+
+            </mat-card-actions>
+        </mat-card>
+        
+    
+    </div>
+</main>

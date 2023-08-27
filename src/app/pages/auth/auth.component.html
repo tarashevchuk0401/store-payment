@@ -1,0 +1,14 @@
+<div class="wrapper">
+    <form #authForm="ngForm" >
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" ngModel name="email" id="email" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input type="text" matInput ngModel name="password">
+        </mat-form-field>
+        <button mat-raised-button type="submit" (click)="signUp(authForm)" >Sign Up</button>
+        <button mat-raised-button type="submit" (click)="signIn(authForm)" >Sign In</button>
+    </form>
+</div>

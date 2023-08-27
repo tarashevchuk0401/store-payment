@@ -1,0 +1,27 @@
+.wrapper {
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;  
+}
+
+img{
+    width: 200px;
+}
+
+mat-card{
+    width: 250px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+}
+
