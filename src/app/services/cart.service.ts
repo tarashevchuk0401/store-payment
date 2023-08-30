@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartItem } from '../models/CartItem.model';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Cart } from '../models/Cart.model';
 
 @Injectable({
@@ -23,7 +23,9 @@ export class CartService {
     })
   }
 
-  getFromCart(): Observable<Cart> {
-    return this.http.get<Cart>(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${this.userId}/cart.json`).pipe(tap(i => console.log(i)));
+  getFromCart(userId: string): Observable<Object> {
+    return this.http.get(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json`).pipe(
+      map((item: any) => Array.from(Object.values(item))),
+    );
   }
 }

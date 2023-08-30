@@ -1,5 +1,5 @@
 <p>cart works!</p>
-<main  *ngIf="cart.items">
+<main  >
     <div class="card_wrapper" *ngFor="let product of cart.items">
         <mat-card class="example-card">
             <mat-card-header>
@@ -14,7 +14,6 @@
 
             </mat-card-actions>
         </mat-card>
-        
-    
     </div>
+    <button (click)="checkout()">Checkout</button>
 </main>

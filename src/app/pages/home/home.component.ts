@@ -27,7 +27,7 @@ export class HomeComponent {
       id: '1214',
       name: 'Real Bike ',
       description: 'Mtb sdf sdf sdfsdfasd asd asdasd asdasd asdadsfa sdasd sdf sdfsdf ',
-      price: 1,
+      price: 0.5,
       imageUrl: 'https://sportano.pl/img/5c06e5cc417e494d49cecc1c7a999f9a/8/4/8434446745119_20E-jpg/rower-gorski-orbea-mx-29-50-czerwony-564610.jpg',
     },
   ]
