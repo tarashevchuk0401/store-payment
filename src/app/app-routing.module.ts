@@ -9,6 +9,13 @@ const routes: Routes = [
   {path: 'home', component : HomeComponent},
   {path: 'auth', component : AuthComponent},
   {path: 'cart', component : CartComponent},
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./lazy-load/lazy-load.module').then(
+        (m) => m.LazyLoadModule
+      ),
+  },
 ];
 
 @NgModule({

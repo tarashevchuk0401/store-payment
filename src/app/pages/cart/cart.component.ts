@@ -33,7 +33,7 @@ export class CartComponent implements OnInit, OnDestroy {
     let userId = localStorage.getItem('id');
 
     if (userId) {
-      this.cartService.getFromCart(userId).subscribe((data: any) => {
+      this.cartService.getFromCart$(userId).subscribe((data: any) => {
         this.cart.userId = localStorage.getItem('id')!;
 
         this.cart.items = data;
@@ -42,6 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Go to checkout (payment). Need to run server on localhost 4243 (server.js)
   checkout(){
     this.http.post('http://localhost:4243/checkout', {
       items: this.cart.items

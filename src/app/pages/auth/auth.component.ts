@@ -12,24 +12,31 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AuthComponent {
 
-  constructor(private authorization :AuthService, private snackBar: MatSnackBar, private router:Router){}
+  constructor(private authorization: AuthService, private snackBar: MatSnackBar, private router: Router) { }
 
   // Sign Up , set email/password to firebase Authorization and setUserId in RealtimeDataBase
-  signUp(form: NgForm):void{
-    this.authorization.signUp(form.value.email, form.value.password).subscribe( (d:any) =>{
-      this.snackBar.open('Sign up successful', 'ok', {duration: 2000});
+  signUp(form: NgForm): void {
+    this.authorization.signUp(form.value.email, form.value.password).subscribe((d: any) => {
+      this.snackBar.open('Sign up successful', 'ok', { duration: 3000 });
+
       this.authorization.setUserId(d.localId).subscribe();
-      localStorage.setItem('id', d.localId );
+      localStorage.setItem('id', d.localId);
       this.router.navigate(['home']);
     })
   }
 
-  signIn(form: NgForm):void{
-    this.authorization.signIn(form.value.email, form.value.password).subscribe((d:any)=> {
-      this.snackBar.open('Sign in successful', 'ok', {duration: 2000});
+
+
+
+        //  IMPLEMENT
+  signIn(form: NgForm): void {
+    this.authorization.signIn(form.value.email, form.value.password).subscribe((d: any) => {
+      this.snackBar.open('Sign in successful', 'ok', { duration: 2000 });
       this.router.navigate(['home']);
-      localStorage.setItem('id', d.localId );
+      localStorage.setItem('id', d.localId);
     })
   }
+
+
 
 }

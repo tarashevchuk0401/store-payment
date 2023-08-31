@@ -1,14 +1,43 @@
+
 <div class="wrapper">
-    <form #authForm="ngForm" >
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input type="email" ngModel name="email" id="email" matInput required>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input type="text" matInput ngModel name="password">
-        </mat-form-field>
-        <button mat-raised-button type="submit" (click)="signUp(authForm)" >Sign Up</button>
-        <button mat-raised-button type="submit" (click)="signIn(authForm)" >Sign In</button>
-    </form>
+    <mat-tab-group fitInkBarToContent  animationDuration="300ms">
+        <mat-tab label="Sign Up" >
+            <form #signUpForm="ngForm" class="mat-tab-body-content">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput required name="name" ngModel minlength="2">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Surname</mat-label>
+                    <input type="text" matInput name="surname" ngModel>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput required name="email" ngModel minlength="2">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Phone</mat-label>
+                    <input type="text " matInput name="phone" ngModel placeholder="+48 508 135 405 " length="9">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input type="text" matInput required name="password" ngModel>
+                </mat-form-field>
+                <button (click)="signUp(signUpForm)" mat-raised-button [disabled]="signUpForm.invalid">Sign Up</button>
+            </form>
+        </mat-tab>
+        <mat-tab label="Log In">
+            <form #logInForm="ngForm"  class="mat-tab-body-content">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput required name="email" ngModel minlength="2">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput required name="password" ngModel>
+                </mat-form-field>
+                <button type="submit" mat-raised-button [disabled]="logInForm.invalid">Log In</button>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
 </div>

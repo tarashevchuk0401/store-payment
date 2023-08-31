@@ -12,13 +12,16 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CartService } from './services/cart.service';
-
+import { DataBaseService } from './services/data-base.service';
+import { HeaderComponent } from './pages/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     HomeComponent,
-    CartComponent
+    CartComponent,
+    HeaderComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { CartService } from './services/cart.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, CartService],
+  providers: [AuthService, CartService,DataBaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

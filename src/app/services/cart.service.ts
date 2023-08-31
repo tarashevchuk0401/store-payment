@@ -23,7 +23,7 @@ export class CartService {
     })
   }
 
-  getFromCart(userId: string): Observable<Object> {
+  getFromCart$(userId: string): Observable<Object> {
     return this.http.get(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json`).pipe(
       map((item: any) => Array.from(Object.values(item))),
     );
