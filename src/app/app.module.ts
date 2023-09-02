@@ -14,6 +14,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { CartService } from './services/cart.service';
 import { DataBaseService } from './services/data-base.service';
 import { HeaderComponent } from './pages/header/header.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from './environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +36,12 @@ import { HeaderComponent } from './pages/header/header.component';
     MaterialsModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [AuthService, CartService,DataBaseService],
   bootstrap: [AppComponent]

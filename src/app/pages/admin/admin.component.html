@@ -2,26 +2,27 @@
     <h2>Add new product</h2>
     <form #newProductForm="ngForm" (ngSubmit)="addNewProduct(newProductForm)">
         <mat-form-field>
-            <label >Name</label>
+            <label>Name</label>
             <input type="text" matInput ngModel name="name" required>
         </mat-form-field>
         <mat-form-field>
-            <label >Category</label>
-         <mat-select ngModel name="category" required>
-            <mat-option value="roadBike">Road Bike</mat-option>
-            <mat-option value="mountainBike">Mountain  Bike</mat-option>
-         </mat-select>
+            <label>Category</label>
+            <mat-select ngModel name="category" required>
+                <mat-option value="roadBike">Road Bike</mat-option>
+                <mat-option value="mountainBike">Mountain Bike</mat-option>
+            </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <label >Description</label>
+            <label>Description</label>
             <input type="text" matInput ngModel name="description" required>
         </mat-form-field>
         <mat-form-field>
-            <label >Price</label>
+            <label>Price</label>
             <input type="number" matInput ngModel name="price" required>
         </mat-form-field>
         <!-- <input type="file" name="imageUrl" > -->
         <button mat-raised-button>Submit</button>
     </form>
 </div>
-
+<!-- <input type="file" (change)="upload($event)" id="fileInput"> -->
+<!-- <button (click)="uploadImage('11')">Upload Photo</button> -->
