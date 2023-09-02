@@ -13,15 +13,16 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signUp(email: string, password: string): Observable<unknown> {
+  console.log(email)
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`, { email, password, returnSecureToken: true })
   }
 
-  // Adding new user to the DB (for creating cart in future)
-  setUserId(userId: string) : Observable<unknown>{
+  setUserId(userId: string) {
    return this.http.put(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`, { userId: userId })
   }
 
   signIn(email: string, password: string): Observable<unknown>{
+    console.log(111)
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`, { email, password, returnSecureToken: true })
   }
 

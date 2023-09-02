@@ -13,7 +13,10 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput required name="email" ngModel minlength="2">
+                    <input type="email" #email="ngModel" matInput required name="email" ngModel minlength="2">
+                    <div *ngIf="email.touched && !email.valid">
+                        <div class="error_form">Enter email</div>
+                    </div>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Phone</mat-label>
@@ -36,7 +39,7 @@
                     <mat-label>Password</mat-label>
                     <input type="password" matInput required name="password" ngModel>
                 </mat-form-field>
-                <button type="submit" mat-raised-button [disabled]="logInForm.invalid">Log In</button>
+                <button type="submit" mat-raised-button [disabled]="logInForm.invalid" (click)="signIn(logInForm)">Log In</button>
             </form>
         </mat-tab>
     </mat-tab-group>

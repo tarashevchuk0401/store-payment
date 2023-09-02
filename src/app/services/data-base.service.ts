@@ -13,23 +13,27 @@ export class DataBaseService {
 
   //Adding new product by product.id, open snackBar;
   addNewProduct(
-    productId: string, productName: string, productCategory:string, productDescription: string,
+    productId: string, productName: string, productCategory: string, productDescription: string,
     productPrice: number, productImageUrl: string
   ): Observable<Product> {
-    this.snackBar.open('New prduct added to the data base', 'Ok', {duration: 2000})
+    this.snackBar.open('New prduct added to the data base', 'Ok', { duration: 2000 })
 
     return this.http.put<Product>(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`, {
       id: productId,
       name: productName,
       category: productCategory,
-      descriptions: productDescription,
+      description: productDescription,
       price: productPrice,
       imageUrl: productImageUrl,
     })
   }
 
-  getAllProduct$(): Observable<Array<Product>>{
+  getAllProduct$(): Observable<Array<Product>> {
     return this.http.get<Array<Product>>('https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/products.json')
-    .pipe(map(item => Object.values(item)))
+      .pipe(map(item => Object.values(item)))
+  }
+
+  deleteFromBD(id: string): Observable<any> {
+    return this.http.delete(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`)
   }
 }

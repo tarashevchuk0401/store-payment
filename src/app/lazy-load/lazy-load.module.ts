@@ -4,13 +4,10 @@ import { AdminComponent } from '../pages/admin/admin.component';
 import { RouterModule } from '@angular/router';
 import { MaterialsModule } from '../materials/materials.module';
 import { FormsModule } from '@angular/forms';
-
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
+
 
 
 const routes = [
@@ -29,12 +26,8 @@ const routes = [
     MaterialsModule,
     CommonModule,
     RouterModule.forChild(routes),
-    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule,
+    AngularFireModule
   ]
 })
 export class LazyLoadModule { }

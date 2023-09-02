@@ -1,3 +1,5 @@
+@import "/src/styles.scss";
+
 .wrapper {
     min-height: 100vh;
 }
@@ -7,21 +9,92 @@ header {
     justify-content: space-around;
 }
 
-main{
+main {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;  
+    justify-content: flex-start;
 }
 
-img{
+.foto_header {
+    width: 100%;
+    object-fit: cover;
+}
+
+app-auth {
+    position: absolute;
+    width: 300px;
+    height: 550px;
+    top: 8%;
+    left: 30%;
+    z-index: 1;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+.card_img {
     width: 200px;
+    height: 112px;
+    object-fit: contain;
+    border-radius: 9px;
+    margin-top: 10px;
 }
 
-mat-card{
+mat-card {
     width: 250px;
     margin: 15px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+mat-card-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;    
 }
 
+mat-card-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+
+
+mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+    height: 100vh;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0px 14px 15px -6px rgba(66, 68, 90, 1);
+}
+
+.radio_label{
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.all_cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.card_wrapper{
+    display: flex;
+    flex-direction: row;
+  
+}
+
+.pannel{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+}

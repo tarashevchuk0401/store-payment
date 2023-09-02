@@ -35,18 +35,19 @@ export class CartComponent implements OnInit, OnDestroy {
     if (userId) {
       this.cartService.getFromCart$(userId).subscribe((data: any) => {
         this.cart.userId = localStorage.getItem('id')!;
-
         this.cart.items = data;
-        console.log(this.cart.items);
+
+        // Send quantity of items in cart 
+        this.cartService.sendQuantityInCart();
       })
     }
   }
 
   // Go to checkout (payment). Need to run server on localhost 4243 (server.js)
-  checkout(){
+  checkout() {
     this.http.post('http://localhost:4243/checkout', {
       items: this.cart.items
-    }).subscribe(async(res: any) => {
+    }).subscribe(async (res: any) => {
       console.log(res)
       let stripe = await loadStripe('pk_test_51NjOrHHGPo1tmSJDVkQWhvbMfdwy83hx3f4cBuARFFG2eu5M1In4pmdfQiboSjFtWClwN6Vo4U33lad0tCMZS0u800xUMw1gI3');
       stripe?.redirectToCheckout({

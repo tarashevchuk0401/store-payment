@@ -1,26 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/Product.model';
 import { DataBaseService } from 'src/app/services/data-base.service';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage'
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit{
+  products: Array<Product> = []
 
-  /// Image variables 
-  path: string = '';
-  name: string = '';
-  urlOfImage: string = '';
+  imageFile: any ;
 
-  constructor(private dataBaseService: DataBaseService, private fireStorage: AngularFireStorage ) { }
+  constructor(private dataBaseService: DataBaseService, private fireStorage: AngularFireStorage, private matSnckBar: MatSnackBar) { }
 
-  // Adding new product to DB, creating id for product, reset of  newProductForm in HTML
-  addNewProduct(newProductForm: NgForm): void {
+  ngOnInit(): void {
+    this.getAllProducts()
+  }
+
+  getAllProducts():void{
+    this.dataBaseService.getAllProduct$().subscribe((data) => this.products = data)
+ }
+
+ deleteFromDB(id: string): void{
+  this.dataBaseService.deleteFromBD(id).subscribe(data => {
+    this.matSnckBar.open('Product removed from data base', 'Ok', {duration:3000});
+    this.getAllProducts();
+  })
+ }
+
+  uploadImage(event: any):void {
+   this.imageFile = event.target.files[0];
+  }
+
+  async addNewProduct( newProductForm: NgForm):Promise<void> {
     let newId: string = Math.floor((Math.random() * 1000000000) + 1).toString();
+    let newImageUrl: string = '';
+
+    if (this.imageFile) {
+      let path = `${this.imageFile.name}`;
+      const uploadTask = await this.fireStorage.upload(path, this.imageFile)
+      const url = await uploadTask.ref.getDownloadURL();
+      newImageUrl = url;
+    }
 
     let product: Product = {
       id: newId,
@@ -28,28 +54,13 @@ export class AdminComponent {
       category: newProductForm.value.category,
       description: newProductForm.value.description,
       price: newProductForm.value.price,
-      imageUrl: 'https://www.sklepbiker.pl/wp-content/uploads/2022/06/M_Bike_GRV_400.jpg'
+      imageUrl: newImageUrl,
     }
+
     this.dataBaseService.addNewProduct(product.id, product.name, product.category, product.description, product.price, product.imageUrl)
-      .subscribe(data => newProductForm.reset());
-
-      this.uploadImage(newId)
-  } 
-
-  upload($event: any) {
-    this.path = $event.target.files[0]
+      .subscribe(data => {
+        newProductForm.reset()});
+        this.getAllProducts();
   }
-  
-  
-  async uploadImage(newId: string) {
-    console.log(this.path);
-    const uploadTask = await this.fireStorage.upload(newId, this.path);
-    const url = await uploadTask.ref.getDownloadURL();
-    this.urlOfImage = await url;
-    console.log(url)
-    // await this.server.addUrlOfImage(myId, this.urlOfImage).subscribe(d => window.location.reload())
-  }
-
- 
 
 }
