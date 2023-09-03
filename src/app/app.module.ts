@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CartService } from './services/cart.service';
 import { DataBaseService } from './services/data-base.service';
 import { HeaderComponent } from './pages/header/header.component';
+import { FooterComponent } from './pages/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { HeaderComponent } from './pages/header/header.component';
     HomeComponent,
     CartComponent,
     HeaderComponent,
+    FooterComponent,
     
   ],
   imports: [

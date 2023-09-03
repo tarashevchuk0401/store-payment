@@ -1,0 +1,43 @@
+@import '/src/styles.scss';
+
+footer{
+    background-color: rgb(203, 203, 203);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    padding: 25px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+h5{
+    font-size: 18px;
+    font-weight: 500;
+    transition: all linear .2s;
+
+    &:hover{
+        color: $color_blue;
+        }
+}
+
+a{
+    margin: 5px 0;
+    font-size: 17px;
+    font-weight: 400;
+    transition: all linear .2s;
+
+    &:hover{
+        color: $color_blue;
+        }
+}
