@@ -1,23 +1,23 @@
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // height: 100vh;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 
-.mat-tab-body-content{
+.mat-tab-body-content {
     overflow: hidden;
 }
 
-.error_form{
+.error_form {
     color: red;
     font-size: 20px;
     text-decoration: underline;

@@ -4,9 +4,8 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
-    // position: fixed;
+    position: fixed;
     width: 100%;
-    // z-index: 2;
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
 }
@@ -27,7 +26,7 @@ a {
 .logo {
     width: 250px;
     margin-left: 20px;
-
+    cursor: pointer;
 }
 
 .buttons_header {

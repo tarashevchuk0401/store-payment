@@ -1,16 +1,20 @@
 <header>
     <img class="logo" src="assets/img/Giant-Logo-2022.png" alt="logo" routerLink="/home">
     <div class="buttons_header">
-        <a class="logIn" routerLink="/auth">
+        <a class="logIn" routerLink="/auth" *ngIf="!userId">
             <mat-icon>person</mat-icon>
             Log in
         </a>
-        <a routerLink="/cart" matBadge={{itemsInCart}} >
+        <a class="logIn" *ngIf="userId" (click)="logOut()">
+            <mat-icon>person</mat-icon>
+            Log Out
+        </a>
+        <a routerLink="/cart" matBadge={{itemsInCart}}>
             <mat-icon>shopping_cart</mat-icon>
         </a>
         <a routerLink="/admin">
             <mat-icon>settings</mat-icon>
         </a>
     </div>
-    
+
 </header>

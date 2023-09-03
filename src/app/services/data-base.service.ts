@@ -33,6 +33,10 @@ export class DataBaseService {
       .pipe(map(item => Object.values(item)))
   }
 
+  getProductById$(id: string): Observable<Product>{
+    return this.http.get<Product>(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`)
+  }
+
   deleteFromBD(id: string): Observable<any> {
     return this.http.delete(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`)
   }

@@ -31,6 +31,7 @@ export class AuthComponent {
       localStorage.setItem('id', d.localId);
       this.cartService.sendQuantityInCart();
       this.router.navigate(['home']);
+      window.location.reload();
     },
       (errorMessage) => {
         this.error = errorMessage
@@ -47,6 +48,7 @@ export class AuthComponent {
       localStorage.setItem('id', d.localId);
       this.cartService.sendQuantityInCart();
       this.router.navigate(['home']);
+      window.location.reload();
     },
       (errorMessage) => {
         this.error = errorMessage

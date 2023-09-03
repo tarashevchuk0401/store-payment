@@ -1,0 +1,29 @@
+<div class="product_wrapper" *ngIf="product">
+    <div class="product_container">
+        <img src="{{product.imageUrl}}" alt="prod.image">
+        <div class="info">
+            <div class="name">{{product.name}}</div>
+            <div>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+            </div>
+            <div class="price">{{product.price | currency}}</div>
+            <mat-form-field class="select">
+                <mat-label>Select size</mat-label>
+                <mat-select ngModel name="size">
+                    <mat-option value="s">S</mat-option>
+                    <mat-option value="m">M</mat-option>
+                    <mat-option value="l">L</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="description">{{product.description}}</div>
+            <div class="id">ID: {{product.id}}</div>
+            <button class="button_add" mat-raised-button (click)="addToCart()">Add to cart
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

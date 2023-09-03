@@ -30,14 +30,63 @@ app-auth {
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
+    
+}
+
+.card_wrapper {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.example-card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card_info{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: stretch;
+    width: 100%;
+    flex-grow: 1;
 }
 
 .card_img {
-    width: 200px;
-    height: 112px;
+    width: 300px;
+    // height: 112px;
     object-fit: contain;
     border-radius: 9px;
     margin-top: 10px;
+
+    &:hover {
+        opacity: .8;
+        cursor: pointer;
+    }
+}
+
+mat-card-title {
+    &:hover {
+        opacity: .6;
+        cursor: pointer;
+    }
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: justify;
+}
+
+.price{
+    font-weight: 600;
 }
 
 mat-card {
@@ -47,13 +96,8 @@ mat-card {
     align-items: center;
     justify-content: space-between;
 }
-mat-card-content{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;    
-}
 
-mat-card-actions{
+mat-card-actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -73,31 +117,27 @@ mat-radio-group {
     box-shadow: 0px 14px 15px -6px rgba(66, 68, 90, 1);
 }
 
-.radio_label{
+.radio_label {
     text-align: center;
     font-weight: 500;
     font-size: 16px;
 }
 
-.all_cards{
+.all_cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    
+
 }
 
-.products{
+.products {
     width: 100%;
 }
 
-.card_wrapper{
-    display: flex;
-    flex-direction: row;
-  
-}
 
-.pannel{
+
+.pannel {
     display: flex;
     justify-content: flex-end;
     margin-right: 100px;

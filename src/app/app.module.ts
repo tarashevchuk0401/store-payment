@@ -15,6 +15,7 @@ import { CartService } from './services/cart.service';
 import { DataBaseService } from './services/data-base.service';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { ItemPageComponent } from './pages/item-page/item-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { FooterComponent } from './pages/footer/footer.component';
     CartComponent,
     HeaderComponent,
     FooterComponent,
+    ItemPageComponent,
     
   ],
   imports: [

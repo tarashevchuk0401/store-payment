@@ -11,13 +11,19 @@ import { CartService } from 'src/app/services/cart.service';
 export class HeaderComponent implements OnInit{
 
   itemsInCart: number| undefined  ;
-  userId: string | null = localStorage.getItem('id');
+  userId: string | null = '';
 
 
   constructor(private cartService: CartService){}
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('id')
    this.cartService.itemsInCart.subscribe(d => this.itemsInCart = d);
+  }
+
+  logOut(){
+    localStorage.removeItem('id');
+    window.location.reload();
   }
   
 }

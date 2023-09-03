@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   products: Array<Product> = [];
   categoryFilter: string = 'all';
-  userId: string | null = localStorage.getItem('id');
+  userId: string | null = '' ;
 
   constructor(
     private cartService: CartService,
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+   this.userId = localStorage.getItem('id')
     this.getAllProducts();
     this.cartService.sendQuantityInCart()
   }
@@ -68,6 +69,10 @@ export class HomeComponent implements OnInit {
         this.products = _products.filter(item => item.category == category)
       })
     }
+  }
+
+  goToItemPage(id: string): void{
+    this.router.navigate(['item-page/'+id])
   }
 
 }

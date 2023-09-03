@@ -1,11 +1,13 @@
 <div class="wrapper">
   <img class="foto_header" src="assets/img/header.jpg" alt="cycler">
-  <app-auth></app-auth>
+  <div *ngIf="!userId">
+    <app-auth></app-auth>
+  </div>
   <main>
     <aside>
       <mat-radio-group [(ngModel)]="categoryFilter" color="primary">
         <label class="radio_label">Categories</label>
-        <mat-radio-button class="example-radio-button" value="all"  (click)="filterByCategory('all')" >
+        <mat-radio-button class="example-radio-button" value="all" (click)="filterByCategory('all')">
           All
         </mat-radio-button>
         <mat-radio-button class="example-radio-button" value="road bike" (click)="filterByCategory('roadBike')">
@@ -27,17 +29,21 @@
       <div class="all_cards">
         <div class="card_wrapper" *ngFor="let product of products">
           <mat-card class="example-card">
-            <img class="card_img" mat-card-image src={{product.imageUrl}} alt="Photo of a Shiba Inu">
-            <mat-card-header>
-              <mat-card-title>{{product.name}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p>{{product.description}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <p>{{product.price | currency}}</p>
-              <button mat-button (click)="addToCart(product)">Add to cart</button>
-            </mat-card-actions>
+            <img class="card_img" mat-card-image src={{product.imageUrl}} alt="Photo of a Shiba Inu"
+              routerLink="/item-page/{{product.id}}">
+            <div class="card_info"> <mat-card-header>
+                <mat-card-title routerLink="/item-page/{{product.id}}">{{product.name}}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p class="description">{{product.description}}</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <p class="price" >{{product.price | currency}}</p>
+                <button mat-button (click)="addToCart(product)">
+                  <mat-icon>shopping_cart</mat-icon>
+                  Add to cart</button>
+              </mat-card-actions>
+            </div>
           </mat-card>
         </div>
       </div>
