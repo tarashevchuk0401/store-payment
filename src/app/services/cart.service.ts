@@ -39,5 +39,11 @@ export class CartService {
     }
   }
 
+  changeQuantity(id: string, quantity: number):Observable<any>{
+    return this.http.patch((`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${this.userId}/cart/${id}.json`) , {quantity: quantity})
+  }
 
+  removeFromCart(id:string): Observable<any>{
+    return this.http.delete(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${this.userId}/cart/${id}.json`)
+  }
 }

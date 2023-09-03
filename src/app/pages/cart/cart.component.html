@@ -1,19 +1,36 @@
-<p>cart works!</p>
-<main  >
+<div class="card_main_wrapper" *ngIf="cart.items.length >= 1">
     <div class="card_wrapper" *ngFor="let product of cart.items">
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>{{product.productName}}</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image src={{product.imageUrl}} alt="Photo of a Shiba Inu">
-            <mat-card-content>
-                <p>{{product.quantity}}</p>
-                <p>{{product.price | currency}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-
-            </mat-card-actions>
-        </mat-card>
+        <div class="card_name">{{product.productName}}</div>
+        <div class="card_info">
+            <img class="card_img" src={{product.imageUrl}} alt="imagOfProduct">
+            <div class="delivery">
+                <div class="delivery_top">Delivery : <b>3 days</b></div>
+                <div class="delivery_bottom">Free shipping</div>
+            </div>
+            <div class="change_quantity">
+                <button mat-button (click)="changeQuantity(product.productId, product.quantity, '-')" >
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <span class="quantity">{{product.quantity}}</span>
+                <button mat-button (click)="changeQuantity(product.productId, product.quantity, '+')">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div class="price">
+                <div class="total_price"> {{product.quantity * product.price | currency}} </div>
+                <div class="small_price">{{product.price | currency}}/ 1 pcs</div>
+                    <mat-icon class="delete_button" (click)="removeFromCart(product.productId, product.quantity)">delete</mat-icon>
+            </div>
+        </div>
     </div>
-    <button (click)="checkout()">Checkout</button>
-</main>
+    <div class="total">
+        <div class="total_price">Total price: {{totalPrice | currency}}</div>
+        <button mat-raised-button (click)="checkout()">GO TO CHECKOUT</button>
+    </div>
+</div>
+
+<div class="cart_empty" *ngIf="cart.items.length < 1">
+    <div class="empty">Your cart is empty</div>
+    <a mat-raised-button routerLink="/home">Continue shopping</a>
+</div>
+

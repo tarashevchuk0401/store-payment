@@ -13,6 +13,8 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class AuthComponent {
 
+  error: string = '';
+
   constructor(
     private authorization: AuthService,
     private snackBar: MatSnackBar,
@@ -27,9 +29,14 @@ export class AuthComponent {
       this.snackBar.open('Sign up successful', 'ok', { duration: 3000 });
       this.authorization.setUserId(d.localId).subscribe();
       localStorage.setItem('id', d.localId);
-      this.cartService.sendQuantityInCart();  
+      this.cartService.sendQuantityInCart();
       this.router.navigate(['home']);
-    })
+    },
+      (errorMessage) => {
+        this.error = errorMessage
+
+      }
+    )
   }
 
 
@@ -40,7 +47,11 @@ export class AuthComponent {
       localStorage.setItem('id', d.localId);
       this.cartService.sendQuantityInCart();
       this.router.navigate(['home']);
-    })
+    },
+      (errorMessage) => {
+        this.error = errorMessage
+      }
+    )
   }
 
 

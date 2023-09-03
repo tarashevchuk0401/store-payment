@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +15,8 @@ export class AuthService {
   signUp(email: string, password: string): Observable<unknown> {
   console.log(email)
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`, { email, password, returnSecureToken: true })
+    .pipe(catchError(this.getErrorHandler));
+
   }
 
   setUserId(userId: string) {
@@ -24,6 +26,29 @@ export class AuthService {
   signIn(email: string, password: string): Observable<unknown>{
     console.log(111)
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`, { email, password, returnSecureToken: true })
+    .pipe(catchError(this.getErrorHandler));
+  }
+
+  getErrorHandler(errorRes: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'Invalid email or password'
+    if (!errorRes.error || !errorRes.error.error) {
+      return throwError(errorMessage);
+    }
+    switch (errorRes.error.error.message) {
+      case 'EMAIL_EXISTS':
+        errorMessage = 'Email already exist';
+        break;
+      case 'EMAIL_NOT_FOUND':
+        errorMessage = 'Email not found';
+        break;
+      case 'INVALID_PASSWORD':
+        errorMessage = 'Invalid password';
+        break;
+      case 'INVALID_EMAIL':
+        errorMessage = 'Invalid email';
+        break;
+    }
+    return throwError(errorMessage)
   }
 
 }
