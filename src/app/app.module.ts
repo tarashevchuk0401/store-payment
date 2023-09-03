@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './pages/auth/auth.component';
+import { AuthComponent } from './components/auth/auth.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { MaterialsModule } from './materials/materials.module';
@@ -13,9 +13,10 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CartService } from './services/cart.service';
 import { DataBaseService } from './services/data-base.service';
-import { HeaderComponent } from './pages/header/header.component';
-import { FooterComponent } from './pages/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { ItemPageComponent } from './pages/item-page/item-page.component';
+import { AuthorizationComponent } from './pages/authorization/authorization.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { ItemPageComponent } from './pages/item-page/item-page.component';
     HeaderComponent,
     FooterComponent,
     ItemPageComponent,
+    AuthorizationComponent,
     
   ],
   imports: [

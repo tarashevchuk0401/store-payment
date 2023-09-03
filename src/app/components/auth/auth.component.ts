@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -20,7 +20,6 @@ export class AuthComponent {
     private snackBar: MatSnackBar,
     private router: Router,
     private cartService: CartService
-
   ) { }
 
   // Sign Up , set email/password to firebase Authorization and setUserId in RealtimeDataBase
@@ -30,12 +29,19 @@ export class AuthComponent {
       this.authorization.setUserId(d.localId).subscribe();
       localStorage.setItem('id', d.localId);
       this.cartService.sendQuantityInCart();
-      this.router.navigate(['home']);
-      window.location.reload();
+
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          window.location.reload();
+        }
+      });
+
+      if (this.router.routerState.snapshot.url === '/home') {
+        window.location.reload()
+      } else { this.router.navigate(['home']); }
     },
       (errorMessage) => {
         this.error = errorMessage
-
       }
     )
   }
@@ -47,8 +53,18 @@ export class AuthComponent {
       this.snackBar.open('Sign in successful', 'ok', { duration: 2000 });
       localStorage.setItem('id', d.localId);
       this.cartService.sendQuantityInCart();
-      this.router.navigate(['home']);
-      window.location.reload();
+      // window.location.reload();
+      // Subscribe to the NavigationEnd event
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          window.location.reload();
+        }
+      });
+
+      if (this.router.routerState.snapshot.url === '/home') {
+        window.location.reload()
+      } else { this.router.navigate(['home']); }
+
     },
       (errorMessage) => {
         this.error = errorMessage

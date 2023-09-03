@@ -16,6 +16,15 @@
         <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('mountainBike')">
           Mountain Bike
         </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('e-bike')">
+          E-Bike
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('crossGravel')">
+          Cross & Gravel Bike
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('kidsBike')">
+          Kids  Bike
+        </mat-radio-button>
       </mat-radio-group>
     </aside>
     <div class="products">
@@ -38,7 +47,7 @@
                 <p class="description">{{product.description}}</p>
               </mat-card-content>
               <mat-card-actions>
-                <p class="price" >{{product.price | currency}}</p>
+                <p class="price">{{product.price | currency}}</p>
                 <button mat-button (click)="addToCart(product)">
                   <mat-icon>shopping_cart</mat-icon>
                   Add to cart</button>

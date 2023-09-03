@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         this.cartService.sendQuantityInCart();
       });
     } else {
-      this.router.navigate(['auth'])
+      this.router.navigate(['authorization'])
     }
   }
 

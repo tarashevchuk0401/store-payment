@@ -1,8 +1,12 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    border-radius: 15px;
+    background-color: rgba(231, 229, 229, 0.7);
+    backdrop-filter: blur(1px);
+    height: 500px;
 }
 
 form {

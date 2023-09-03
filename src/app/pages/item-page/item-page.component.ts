@@ -47,7 +47,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         this.cartService.sendQuantityInCart();
       });
     } else {
-      this.router.navigate(['auth'])
+      this.router.navigate(['authorization'])
     }
   }
 }
