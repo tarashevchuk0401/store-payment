@@ -1,13 +1,13 @@
 @import '/src/styles.scss';
 
-.cart_empty{
+.cart_empty {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.empty{
+.empty {
     font-size: 25px;
     margin: 50px 0;
 }
@@ -24,6 +24,10 @@
     object-fit: contain;
     border-radius: 20%;
 
+    &:hover {
+        opacity: .9;
+        cursor: pointer;
+    }
 }
 
 .card_wrapper {
@@ -34,15 +38,27 @@
 
 .card_info {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
 }
 
 .card_name {
     font-weight: 600;
     font-size: 25px;
+
+    &:hover {
+        opacity: .6;
+        cursor: pointer;
+    }
 }
 
-.delivery{
+.delivery_quantity {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.delivery {
     display: flex;
     flex-direction: column;
 }
@@ -53,7 +69,7 @@
     font-size: 20px;
 }
 
-.delivery_bottom{
+.delivery_bottom {
     text-align: center;
     color: green;
     border: 1px solid green;
@@ -62,35 +78,100 @@
     margin-top: 10px;
 }
 
-.quantity{
+.change_quantity {
+    border: 1px solid black;
+    margin: 1px;
+    border-radius: 10px;
+}
+
+.quantity {
     margin: 10px;
     font-size: 20px;
 }
 
-.price{
+.quantity_button{
+    font-size: 30px;
+    margin: 0px;
+}
+
+.price {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    // flex-shrink: 0;
 }
 
-.total_price{
+.total_price {
     font-weight: 700;
     font-size: 20px;
     margin: 25px 0;
 }
 
-.total{
+.total {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     width: 80%;
+    margin: 10px;
 }
 
-.delete_button{
-     
-   &:hover{
-    color:$color_blue;
-   }
+.delete_button {
+
+    &:hover {
+        color: $color_blue;
+    }
+}
+
+@media (max-width: 768px) {
+    .card_img {
+        width: 120px;
+    }
+
+    .card_wrapper {
+        width: 95%;
+    }
+
+    .card_name {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .delivery_top {
+        margin-top: 10px;
+        font-size: 13px;
+        margin-top: 15px;
+    }
+
+    .delivery_bottom {
+        padding: 1px;
+        border-radius: 10px;
+        margin-top: 5px;
+        font-size: 8px;
+    }
+
+    .change_quantity {
+        font-size: 1px;
+    }
+
+    .delivery_quantity{
+        flex-direction: column;
+    }
+
+    .quantity{
+        font-size: 12px;
+        margin: 1px;
+    }
+    
+    .total_price {
+        font-weight: 500;
+        font-size: 14px;
+        margin: 15px 0;
+    }
+    
+    .total {
+        width: 90%;
+    }
+
 }

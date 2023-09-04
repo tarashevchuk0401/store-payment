@@ -13,7 +13,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signUp(email: string, password: string): Observable<unknown> {
-  console.log(email)
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`, { email, password, returnSecureToken: true })
     .pipe(catchError(this.getErrorHandler));
 

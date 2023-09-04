@@ -1,25 +1,28 @@
 <div class="card_main_wrapper" *ngIf="cart.items.length >= 1">
     <div class="card_wrapper" *ngFor="let product of cart.items">
-        <div class="card_name">{{product.productName}}</div>
+        <div class="card_name" routerLink="/item-page/{{product.productId}}">{{product.productName}}</div>
         <div class="card_info">
-            <img class="card_img" src={{product.imageUrl}} alt="imagOfProduct">
-            <div class="delivery">
-                <div class="delivery_top">Delivery : <b>3 days</b></div>
-                <div class="delivery_bottom">Free shipping</div>
-            </div>
-            <div class="change_quantity">
-                <button mat-button (click)="changeQuantity(product.productId, product.quantity, '-')" >
-                    <mat-icon>remove</mat-icon>
-                </button>
-                <span class="quantity">{{product.quantity}}</span>
-                <button mat-button (click)="changeQuantity(product.productId, product.quantity, '+')">
-                    <mat-icon>add</mat-icon>
-                </button>
+            <img class="card_img" src={{product.imageUrl}} alt="imagOfProduct" routerLink="/item-page/{{product.productId}}">
+            <div class="delivery_quantity">
+                <div class="delivery">
+                    <div class="delivery_top">Delivery : <b>3 days</b></div>
+                    <div class="delivery_bottom">Free shipping</div>
+                </div>
+                <div class="change_quantity">
+                    <button class="quantity_button" mat-button (click)="changeQuantity(product.productId, product.quantity, '-')">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <span class="quantity">{{product.quantity}}</span>
+                    <button class="quantity_button" mat-button (click)="changeQuantity(product.productId, product.quantity, '+')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
             </div>
             <div class="price">
                 <div class="total_price"> {{product.quantity * product.price | currency}} </div>
-                <div class="small_price">{{product.price | currency}}/ 1 pcs</div>
-                    <mat-icon class="delete_button" (click)="removeFromCart(product.productId, product.quantity)">delete</mat-icon>
+                <div class="small_price">{{product.price | currency}}/pcs</div>
+                <mat-icon class="delete_button"
+                    (click)="removeFromCart(product.productId, product.quantity)">delete</mat-icon>
             </div>
         </div>
     </div>
@@ -33,4 +36,3 @@
     <div class="empty">Your cart is empty...</div>
     <a mat-raised-button routerLink="/home">Continue shopping</a>
 </div>
-

@@ -43,3 +43,14 @@ a{
         color: $color_blue;
         }
 }
+
+@media (max-width: 768px) {
+    h5, a {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .wrapper{
+        justify-content: space-between;
+    }
+}

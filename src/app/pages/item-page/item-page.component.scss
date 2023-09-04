@@ -2,14 +2,14 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .product_container {
     width: 80%;
     display: flex;
     justify-content: space-between;
-    // align-items: center;
+    margin-bottom: 10px;
 }
 
 img {
@@ -54,4 +54,29 @@ img {
 
 .select{
     margin-top: 20px;
+}
+
+@media (max-width:768px) {
+    .product_container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img{
+        width: 95%;
+    }
+
+    .info{
+        width: 95%;
+    }
+
+    .name{
+        font-size: 18px;
+        margin: 10px;
+    }
+
+    .description{
+        font-style: 15px;
+    }
 }

@@ -21,11 +21,27 @@ main{
 
 img{
     width: 200px;
+    margin: 0 auto;
 }
 
 mat-card{
     width: 250px;
     margin: 15px;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1 ;
+    height: 585px;
+}
+
+mat-card-content{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 230;
+    overflow: hidden;
+}
+
+mat-card-actions{
+    display: flex;
+    justify-content: center;
 }

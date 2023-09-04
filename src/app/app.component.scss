@@ -1,18 +1,22 @@
-app-header{
+app-header {
     position: relative;
     z-index: 2;
 }
+
 main {
     position: absolute;
     top: 110px;
     left: 0;
     width: 100%;
 
-    .outlet{
+    .outlet {
         min-height: 90vh;
-
+        scroll-behavior: smooth;
     }
 }
 
-app-footer{
+@media (max-width: 768px) {
+    main {
+        top: 85px;
+    }
 }

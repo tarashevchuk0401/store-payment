@@ -38,3 +38,18 @@ a {
     display: flex;
     align-items: center;
 }
+
+@media (max-width: 768px) {
+ .logo{
+    width: 110px;
+    object-fit: contain;
+ }
+
+ a{
+    font-size: 17px;
+ }
+
+ header{
+    padding: 8px;
+ }
+}
