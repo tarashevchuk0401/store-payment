@@ -1,7 +1,10 @@
 <div class="wrapper">
   <img class="foto_header" src="assets/img/header.jpg" alt="cycler">
   <div *ngIf="!userId" class="app-auth">
-    <app-auth></app-auth>
+    <app-auth class="fotoInfo fotoAuth"></app-auth>
+  </div>
+  <div *ngIf="userId" class="app-auth">
+    <div class="fotoInfo fotoText ">Push your limits</div>
   </div>
   <main>
     <aside>

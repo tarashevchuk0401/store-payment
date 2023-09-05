@@ -14,7 +14,6 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 }
 
 .mat-tab-body-content {
@@ -24,12 +23,18 @@ form {
 .error_form {
     color: red;
     font-size: 20px;
-    text-decoration: underline;
+    margin: 15px 0;
+}
 
+.advice {
+    text-align: justify;
+    line-height: 30px;
+    margin: 10px;
+    font-size: 18px;
 }
 
 @media (max-width: 768px) {
-    .wrapper{
-        // width: 50%;
-    }    
+    .advice {
+        font-size: 12px;
+    }
 }

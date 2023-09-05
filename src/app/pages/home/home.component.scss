@@ -20,13 +20,24 @@ main {
     object-fit: contain;
 }
 
-app-auth {
+.fotoInfo{
     position: absolute;
-    width: 300px;
     height: 550px;
     top: 100px;
-    left: 30%;
     z-index: 1;
+}
+
+.fotoAuth{
+    width: 300px;
+    left: 30%;
+}
+
+.fotoText{
+    font-size: 65px;
+    color: rgba($color: #ffffff, $alpha: .9);
+    line-height: 100px;
+    font-weight: 700;
+    left: 10%;
 }
 
 .card_wrapper {
@@ -133,7 +144,7 @@ mat-radio-group {
 }
 
 @media (max-width: 1200px) {
-    .app-auth {
+    .fotoAuth {
         display: none;
     }
 }
@@ -145,7 +156,10 @@ mat-radio-group {
 
     .example-card {
         width: 220px;
-       
+    }
+
+    .fotoText{
+        font-size: 35px;
     }
 
 

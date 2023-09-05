@@ -27,7 +27,6 @@
         <button mat-raised-button (click)="addNewProduct(newProductForm)" [disabled]="newProductForm.invalid">Submit</button>
     </form>
 </div>
-
 <main>
     <div class="card_wrapper" *ngFor="let product of products">
         <mat-card class="example-card">
@@ -38,7 +37,6 @@
             <mat-card-content>
               <p>{{product.description}}</p>
               <p>{{product.price | currency}}</p>
-
             </mat-card-content>
             <mat-card-actions>
               <button mat-button (click)="deleteFromDB(product.id)">Delete</button>

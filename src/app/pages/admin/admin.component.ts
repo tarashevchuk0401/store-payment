@@ -4,6 +4,8 @@ import { Product } from 'src/app/models/Product.model';
 import { DataBaseService } from 'src/app/services/data-base.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UnsubscribingService } from 'src/app/services/unsubscribing.service';
+import { takeUntil } from 'rxjs';
 
 
 @Component({
@@ -11,33 +13,38 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit{
+export class AdminComponent extends UnsubscribingService implements OnInit {
   products: Array<Product> = []
 
-  imageFile: any ;
+  imageFile: any;
 
-  constructor(private dataBaseService: DataBaseService, private fireStorage: AngularFireStorage, private matSnckBar: MatSnackBar) { }
+  constructor(
+    private dataBaseService: DataBaseService,
+    private fireStorage: AngularFireStorage,
+    private matSnckBar: MatSnackBar) {
+    super()
+  }
 
   ngOnInit(): void {
     this.getAllProducts()
   }
 
-  getAllProducts():void{
-    this.dataBaseService.getAllProduct$().subscribe((data) => this.products = data)
- }
-
- deleteFromDB(id: string): void{
-  this.dataBaseService.deleteFromBD(id).subscribe(data => {
-    this.matSnckBar.open('Product removed from data base', 'Ok', {duration:3000});
-    this.getAllProducts();
-  })
- }
-
-  uploadImage(event: any):void {
-   this.imageFile = event.target.files[0];
+  getAllProducts(): void {
+    this.dataBaseService.getAllProduct$().pipe(takeUntil(this.unsubscriber$)).subscribe((data) => this.products = data)
   }
 
-  async addNewProduct( newProductForm: NgForm):Promise<void> {
+  deleteFromDB(id: string): void {
+    this.dataBaseService.deleteFromBD(id).pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
+      this.matSnckBar.open('Product removed from data base', 'Ok', { duration: 3000 });
+      this.getAllProducts();
+    })
+  }
+
+  uploadImage(event: any): void {
+    this.imageFile = event.target.files[0];
+  }
+
+  async addNewProduct(newProductForm: NgForm): Promise<void> {
     let newId: string = Math.floor((Math.random() * 1000000000) + 1).toString();
     let newImageUrl: string = '';
 
@@ -58,9 +65,11 @@ export class AdminComponent implements OnInit{
     }
 
     this.dataBaseService.addNewProduct(product.id, product.name, product.category, product.description, product.price, product.imageUrl)
-      .subscribe(data => {
-        newProductForm.reset()});
-        this.getAllProducts();
+      .pipe(takeUntil(this.unsubscriber$))
+      .subscribe(() => {
+        newProductForm.reset()
+      });
+    this.getAllProducts();
   }
 
 }

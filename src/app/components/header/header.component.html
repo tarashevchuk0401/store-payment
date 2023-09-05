@@ -12,7 +12,7 @@
         <a routerLink="/cart" matBadge={{itemsInCart}}>
             <mat-icon>shopping_cart</mat-icon>
         </a>
-        <a routerLink="/admin">
+        <a routerLink="/admin" *ngIf="isAdmin">
             <mat-icon>settings</mat-icon>
         </a>
     </div>
