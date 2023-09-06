@@ -20,19 +20,19 @@ main {
     object-fit: contain;
 }
 
-.fotoInfo{
+.fotoInfo {
     position: absolute;
     height: 550px;
     top: 100px;
     z-index: 1;
 }
 
-.fotoAuth{
+.fotoAuth {
     width: 300px;
     left: 30%;
 }
 
-.fotoText{
+.fotoText {
     font-size: 65px;
     color: rgba($color: #ffffff, $alpha: .9);
     line-height: 100px;
@@ -136,11 +136,15 @@ mat-radio-group {
     width: 100%;
 }
 
-.pannel {
+aside {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 50px;
-    margin-top: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px;
+}
+
+input {
+    margin: 0 5px;
 }
 
 @media (max-width: 1200px) {
@@ -150,7 +154,7 @@ mat-radio-group {
 }
 
 @media (max-width: 768px) {
-    .card_img{
+    .card_img {
         width: 150px;
     }
 
@@ -158,9 +162,22 @@ mat-radio-group {
         width: 220px;
     }
 
-    .fotoText{
+    .fotoText {
         font-size: 35px;
     }
 
+    main {
+        flex-direction: column;
+    }
 
+    aside {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 460px) {
+    aside {
+        flex-direction: column;
+    }
 }

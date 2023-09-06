@@ -18,6 +18,7 @@ export class HomeComponent extends UnsubscribingService implements OnInit {
   products: Array<Product> = [];
   categoryFilter: string = 'all';
   userId: string | null = '';
+  sortPriceOperator: string = 'startPriceLow';
 
 
   constructor(
@@ -33,7 +34,6 @@ export class HomeComponent extends UnsubscribingService implements OnInit {
     this.userId = localStorage.getItem('id')
     this.getAllProducts();
     this.cartService.sendQuantityInCart();
-    // this.interval$.pipe(takeUntil(this.unsubscriber$)).subscribe(d => console.log(d))
   }
 
   addToCart(product: Product): void {
@@ -55,15 +55,18 @@ export class HomeComponent extends UnsubscribingService implements OnInit {
   getAllProducts(): void {
     this.dataBaseService.getAllProduct$()
       .pipe(takeUntil(this.unsubscriber$))
-      .subscribe((_products) => this.products = _products)
+      .subscribe((_products) => {
+        this.products = _products;
+        this.sortByPrice();
+      })
   }
 
-  sortProducts(operator: string) {
-    switch (operator) {
-      case ('priceLow'):
+  sortByPrice() {
+    switch (this.sortPriceOperator) {
+      case ('startPriceLow'):
         this.products.sort((a, b) => a.price - b.price);
         break;
-      case ('priceHigh'):
+      case ('startPriceHigh'):
         this.products.sort((a, b) => b.price - a.price);
         break;
     }
@@ -74,10 +77,11 @@ export class HomeComponent extends UnsubscribingService implements OnInit {
       this.getAllProducts();
     } else {
       this.dataBaseService.getAllProduct$()
-      .pipe(takeUntil(this.unsubscriber$))
-      .subscribe((_products) => {
-        this.products = _products.filter(item => item.category == category)
-      })
+        .pipe(takeUntil(this.unsubscriber$))
+        .subscribe((_products) => {
+          this.products = _products.filter(item => item.category == category);
+          this.sortByPrice();
+        })
     }
   }
 

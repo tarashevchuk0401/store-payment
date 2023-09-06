@@ -8,36 +8,27 @@
   </div>
   <main>
     <aside>
-      <mat-radio-group [(ngModel)]="categoryFilter" color="primary">
-        <label class="radio_label">Categories</label>
-        <mat-radio-button class="example-radio-button" value="all" (click)="filterByCategory('all')">
-          All
-        </mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="road bike" (click)="filterByCategory('roadBike')">
-          Road Bike
-        </mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('mountainBike')">
-          Mountain Bike
-        </mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('e-bike')">
-          E-Bike
-        </mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('crossGravel')">
-          Cross & Gravel Bike
-        </mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="mountain bike" (click)="filterByCategory('kidsBike')">
-          Kids  Bike
-        </mat-radio-button>
-      </mat-radio-group>
+      <mat-form-field>
+        <mat-label>Sort by price</mat-label>
+        <mat-select [(ngModel)]="sortPriceOperator">
+          <mat-option value="startPriceLow" (click)="sortByPrice()">Price Low to high</mat-option>
+          <mat-option value="startPriceHigh" (click)="sortByPrice()">Price High to Low</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Filter by category</mat-label>
+        <mat-select>
+          <mat-option value="All" (click)="filterByCategory('all')">All</mat-option>
+          <mat-option value="Road Bikes" (click)="filterByCategory('roadBike')">Road Bikes</mat-option>
+          <mat-option value="Mountain Bikes" (click)="filterByCategory('mountainBike')">Mountain Bikes</mat-option>
+          <mat-option value="E-Bikes" (click)="filterByCategory('e-bike')">E-Bikes</mat-option>
+          <mat-option value="Cross & Gravel" (click)="filterByCategory('crossGravel')">Cross & Gravel</mat-option>
+          <mat-option value="Kids Bike" (click)="filterByCategory('kidsBike')">Kids Bike</mat-option>
+        </mat-select>
+      </mat-form-field>
+
     </aside>
     <div class="products">
-      <div class="pannel">
-        <button mat-raised-button [matMenuTriggerFor]="menu">Sort By</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="sortProducts('priceLow')">Price Low to high</button>
-          <button mat-menu-item (click)="sortProducts('priceHigh')">Price High to Low</button>
-        </mat-menu>
-      </div>
       <div class="all_cards">
         <div class="card_wrapper" *ngFor="let product of products">
           <mat-card class="example-card">
