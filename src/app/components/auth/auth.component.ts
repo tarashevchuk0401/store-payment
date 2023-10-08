@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, NavigationEnd } from '@angular/router';
-import { takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
+import { User } from 'src/app/models/User.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UnsubscribingService } from 'src/app/services/unsubscribing.service';
@@ -65,7 +66,11 @@ export class AuthComponent extends UnsubscribingService {
         // Subscribe to the NavigationEnd event
         this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            window.location.reload();
+
+
+            // window.location.reload();
+
+
           }
         });
 

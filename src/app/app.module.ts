@@ -35,7 +35,7 @@ import { AuthorizationComponent } from './pages/authorization/authorization.comp
     MaterialsModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthService, CartService,DataBaseService],
   bootstrap: [AppComponent]

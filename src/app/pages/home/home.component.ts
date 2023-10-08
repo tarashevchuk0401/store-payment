@@ -20,7 +20,6 @@ export class HomeComponent extends UnsubscribingService implements OnInit {
   userId: string | null = '';
   sortPriceOperator: string = 'startPriceLow';
 
-
   constructor(
     private cartService: CartService,
     private dataBaseService: DataBaseService,

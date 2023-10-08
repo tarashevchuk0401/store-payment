@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,13 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Observable<unknown> {
-    console.log(111)
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`, { email, password, returnSecureToken: true })
-      .pipe(catchError(this.getErrorHandler));
+    return this.http.post<User>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`,
+      { email, password, returnSecureToken: false }
+    ).pipe(tap(i => console.log(i)), catchError(this.getErrorHandler));
   }
 
-  getErrorHandler(errorRes: HttpErrorResponse): Observable<never> {
+  getErrorHandler(errorRes: HttpErrorResponse): Observable<unknown> {
     let errorMessage = 'Invalid email or password'
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(() => new Error(errorMessage));
