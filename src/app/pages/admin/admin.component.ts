@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/Product.model';
 import { DataBaseService } from 'src/app/services/data-base.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UnsubscribingService } from 'src/app/services/unsubscribing.service';
-import { takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -13,28 +12,31 @@ import { takeUntil } from 'rxjs';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent extends UnsubscribingService implements OnInit {
+export class AdminComponent  implements OnInit, OnDestroy{
   products: Array<Product> = []
-
+  unsubscribing$ = new Subject();
   imageFile: any;
 
   constructor(
     private dataBaseService: DataBaseService,
     private fireStorage: AngularFireStorage,
-    private matSnckBar: MatSnackBar) {
-    super()
-  }
+    private matSnckBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getAllProducts()
   }
 
+  ngOnDestroy(): void {
+      this.unsubscribing$.next(null);
+      this.unsubscribing$.complete()
+  }
+
   getAllProducts(): void {
-    this.dataBaseService.getAllProduct$().pipe(takeUntil(this.unsubscriber$)).subscribe((data) => this.products = data)
+    this.dataBaseService.getAllProduct$().pipe(takeUntil(this.unsubscribing$)).subscribe((data) => this.products = data)
   }
 
   deleteFromDB(id: string): void {
-    this.dataBaseService.deleteFromBD(id).pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
+    this.dataBaseService.deleteFromBD(id).pipe(takeUntil(this.unsubscribing$)).subscribe(() => {
       this.matSnckBar.open('Product removed from data base', 'Ok', { duration: 3000 });
       this.getAllProducts();
     })
@@ -65,7 +67,7 @@ export class AdminComponent extends UnsubscribingService implements OnInit {
     }
 
     this.dataBaseService.addNewProduct(product.id, product.name, product.category, product.description, product.price, product.imageUrl)
-      .pipe(takeUntil(this.unsubscriber$))
+      .pipe(takeUntil(this.unsubscribing$))
       .subscribe(() => {
         newProductForm.reset()
       });

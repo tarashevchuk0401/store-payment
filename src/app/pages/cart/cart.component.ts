@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component,  OnDestroy, OnInit } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
-import { Subscription, catchError, debounceTime, map, takeUntil } from 'rxjs';
+import { Subject, Subscription, catchError,  takeUntil } from 'rxjs';
 import { Cart } from 'src/app/models/Cart.model';
 import { CartItem } from 'src/app/models/CartItem.model';
 import { CartService } from 'src/app/services/cart.service';
-import { UnsubscribingService } from 'src/app/services/unsubscribing.service';
 
 
 const STRIPE_PUBLIC_KEY = 'pk_test_51NjOrHHGPo1tmSJDVkQWhvbMfdwy83hx3f4cBuARFFG2eu5M1In4pmdfQiboSjFtWClwN6Vo4U33lad0tCMZS0u800xUMw1gI3';
@@ -16,20 +15,25 @@ const CHECKOUT_SERVER_URL = 'http://localhost:4243/checkout';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent extends UnsubscribingService implements OnInit, OnDestroy {
+export class CartComponent  implements OnInit, OnDestroy {
   cart: Cart = {
     userId: '',
     items: []
   };
 
+  unsubscribing$ = new Subject()
+
   totalPrice: number = 0;
 
-  constructor(private cartService: CartService, private http: HttpClient) { 
-    super()
-  }
+  constructor(private cartService: CartService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.getCart();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribing$.next(null);
+    this.unsubscribing$.complete()
   }
 
   getCart(): void {
@@ -37,7 +41,7 @@ export class CartComponent extends UnsubscribingService implements OnInit, OnDes
 
     if (userId) {
       this.cartService.getFromCart$(userId)
-      .pipe(takeUntil(this.unsubscriber$))
+      .pipe(takeUntil(this.unsubscribing$))
       .subscribe((data: any) => {
         this.cart.items = data;
         // Send quantity of items in cart 
@@ -46,8 +50,6 @@ export class CartComponent extends UnsubscribingService implements OnInit, OnDes
       })
     }
   }
-
-
 
   // Go to checkout (payment). Need to run server on localhost 4243 (server.js)
   // checkout(): void {
@@ -83,7 +85,7 @@ export class CartComponent extends UnsubscribingService implements OnInit, OnDes
   changeQuantity(id: string, quantity: number, operator: string): Subscription | void {
     if (quantity === 1 && operator === '-') {
       return this.cartService.removeFromCart(id)
-      .pipe(takeUntil(this.unsubscriber$))
+      .pipe(takeUntil(this.unsubscribing$))
       .subscribe(d => {
         this.cart.items = this.cart.items.filter((item: CartItem) => item.productId !== id);
         // Send quantity of items in cart 
@@ -94,10 +96,10 @@ export class CartComponent extends UnsubscribingService implements OnInit, OnDes
 
     if (operator === '+') {
       let newQuantity = quantity + 1;
-      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscriber$)).subscribe(() => this.getCart())
+      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscribing$)).subscribe(() => this.getCart())
     } if (operator === '-') {
       let newQuantity = quantity - 1;
-      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscriber$)).subscribe(() => this.getCart())
+      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscribing$)).subscribe(() => this.getCart())
     }
     this.getTotalPrice();
   }
@@ -106,7 +108,7 @@ export class CartComponent extends UnsubscribingService implements OnInit, OnDes
     if (this.cart.items.length === 1 && quantity === 1) {
       this.cart.items = this.cart.items.filter((item: CartItem) => item.productId !== id);
     }
-    this.cartService.removeFromCart(id).pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
+    this.cartService.removeFromCart(id).pipe(takeUntil(this.unsubscribing$)).subscribe(() => {
       this.getCart();
       // Send quantity of items in cart 
       this.cartService.sendQuantityInCart();
