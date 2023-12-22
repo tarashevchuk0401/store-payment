@@ -32,7 +32,7 @@
       <div class="all_cards">
         <div class="card_wrapper" *ngFor="let product of products">
           <mat-card class="example-card">
-            <img class="card_img" mat-card-image src={{product.imageUrl}} alt="Photo of a Shiba Inu"
+            <img class="card_img" mat-card-image src={{product.imageUrl}} alt="Photo "
               routerLink="/item-page/{{product.id}}">
             <div class="card_info"> <mat-card-header>
                 <mat-card-title routerLink="/item-page/{{product.id}}">{{product.name}}</mat-card-title>

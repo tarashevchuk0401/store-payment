@@ -20,7 +20,7 @@ export class AdminComponent  implements OnInit, OnDestroy{
   constructor(
     private dataBaseService: DataBaseService,
     private fireStorage: AngularFireStorage,
-    private matSnckBar: MatSnackBar) {}
+    private matSnackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getAllProducts()
@@ -37,7 +37,7 @@ export class AdminComponent  implements OnInit, OnDestroy{
 
   deleteFromDB(id: string): void {
     this.dataBaseService.deleteFromBD(id).pipe(takeUntil(this.unsubscribing$)).subscribe(() => {
-      this.matSnckBar.open('Product removed from data base', 'Ok', { duration: 3000 });
+      this.matSnackBar.open('Product removed from data base', 'Ok', { duration: 3000 });
       this.getAllProducts();
     })
   }

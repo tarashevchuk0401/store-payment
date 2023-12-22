@@ -32,7 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
 
   logOut() {
-    this.matSnackBar.open('Loged out', 'Ok', { duration: 3000 })
+    this.matSnackBar.open('Logout', 'Ok', { duration: 3000 })
+    
     localStorage.removeItem('id');
     setTimeout(() => {
       window.location.reload();
