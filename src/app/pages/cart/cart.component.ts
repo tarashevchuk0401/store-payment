@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,  OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
-import { Subject, Subscription, catchError,  takeUntil } from 'rxjs';
+import { Subject, Subscription, catchError, takeUntil } from 'rxjs';
 import { Cart } from 'src/app/models/Cart.model';
 import { CartItem } from 'src/app/models/CartItem.model';
 import { CartService } from 'src/app/services/cart.service';
@@ -15,7 +15,7 @@ const CHECKOUT_SERVER_URL = 'http://localhost:4243/checkout';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent  implements OnInit, OnDestroy {
+export class CartComponent implements OnInit, OnDestroy {
   cart: Cart = {
     userId: '',
     items: []
@@ -25,7 +25,7 @@ export class CartComponent  implements OnInit, OnDestroy {
 
   totalPrice: number = 0;
 
-  constructor(private cartService: CartService, private http: HttpClient) {}
+  constructor(private cartService: CartService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getCart();
@@ -41,13 +41,14 @@ export class CartComponent  implements OnInit, OnDestroy {
 
     if (userId) {
       this.cartService.getFromCart$(userId)
-      .pipe(takeUntil(this.unsubscribing$))
-      .subscribe((data: any) => {
-        this.cart.items = data;
-        // Send quantity of items in cart 
-        this.cartService.sendQuantityInCart();
-        this.getTotalPrice();
-      })
+        .pipe(takeUntil(this.unsubscribing$))
+        .subscribe((data: CartItem[]) => {
+          console.log(data)
+          this.cart.items = data;
+          // Send quantity of items in cart 
+          this.cartService.sendQuantityInCart();
+          this.getTotalPrice();
+        })
     }
   }
 
@@ -85,22 +86,29 @@ export class CartComponent  implements OnInit, OnDestroy {
   changeQuantity(id: string, quantity: number, operator: string): Subscription | void {
     if (quantity === 1 && operator === '-') {
       return this.cartService.removeFromCart(id)
-      .pipe(takeUntil(this.unsubscribing$))
-      .subscribe(d => {
-        this.cart.items = this.cart.items.filter((item: CartItem) => item.productId !== id);
-        // Send quantity of items in cart 
-        this.cartService.sendQuantityInCart();
-        this.getTotalPrice();
-      })
+        .pipe(
+          takeUntil(this.unsubscribing$))
+        .subscribe(() => {
+          this.cart.items = this.cart.items.filter((item: CartItem) => item.productId !== id);
+          // Send quantity of items in cart 
+          this.cartService.sendQuantityInCart();
+          this.getTotalPrice();
+        })
     }
 
-    if (operator === '+') {
-      let newQuantity = quantity + 1;
-      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscribing$)).subscribe(() => this.getCart())
-    } if (operator === '-') {
-      let newQuantity = quantity - 1;
-      this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscribing$)).subscribe(() => this.getCart())
-    }
+    let newQuantity = 0;
+    switch (operator) {
+      case '+':
+        newQuantity = quantity + 1;
+        break;
+      case '-':
+        newQuantity = quantity - 1;
+        break;
+    };
+
+    this.cartService.changeQuantity(id, newQuantity).pipe(takeUntil(this.unsubscribing$))
+      .subscribe(() => this.getCart());
+
     this.getTotalPrice();
   }
 
