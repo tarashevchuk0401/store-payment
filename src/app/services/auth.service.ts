@@ -19,6 +19,7 @@ export class AuthService {
   }
 
   setUserId(userId: string) {
+    console.log('set')
     return this.http.put(`https://store-payment-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`, { userId: userId })
   }
 
